@@ -22,9 +22,9 @@ def scrap_stats_table():
         row = ""
         for col in columns:
             if not row:
-                row = col.text
+                row = col.text.replace(',', '|')
             else:
-                row = row + "," + col.text
+                row = row + "," + col.text.replace(',', '|')
 
         print row
 
@@ -33,7 +33,7 @@ driver = webdriver.Chrome()
 
 actions = Actions(driver)
 
-driver.get('http://www.nhl.com/stats/player?reportType=season&seasonFrom=20182019&seasonTo=20182019&gameType=2&filter=gamesPlayed,gte,1&sort=points,goals,assists')
+driver.get('http://www.nhl.com/stats/player?reportType=season&seasonFrom=20172018&seasonTo=20172018&gameType=2&filter=gamesPlayed,gte,1&sort=points,goals,assists')
 
 total_pages = get_table_page_info()
 

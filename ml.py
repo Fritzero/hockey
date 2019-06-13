@@ -80,7 +80,7 @@ print("Step: {},         Loss: {}".format(global_step.numpy(),
 train_loss_results = []
 train_accuracy_results = []
 
-num_epochs = 251
+num_epochs = 101
 
 for epoch in range(num_epochs):
     epoch_loss_avg = tfe.metrics.Mean()

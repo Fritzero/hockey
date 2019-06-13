@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import json
 
 from bs4 import BeautifulSoup
 from string import ascii_lowercase
@@ -53,16 +54,26 @@ class Entry(object):
 
 
 for letter in ascii_lowercase[:1]:
+    players = list()
+
     with open("html_out/html_{}".format(letter), 'r') as f:
         soup = BeautifulSoup(f, "html.parser")
         table_rows = soup.findAll("tr")
+
+        headers = [x.text.replace('.', '') for x in table_rows[0].findAll("th")]
+        print headers
+
         for table_row in table_rows:
-            value = ""
+            entry = {}
             columns = table_row.findAll("td")
+            print columns
+            iterator = 0
             for col in columns:
-                if not value:
-                    value = col.text
-                else:
-                    value = value + "," + col.text
-            if value:
-                print value
+                print col
+                entry[headers[iterator]] = col.text
+                iterator = iterator + 1
+            if entry.keys():
+                players.append(entry)
+
+    for player in players:
+        print json.dumps(player, indent=4)
